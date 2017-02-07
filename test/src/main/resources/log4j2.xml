@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%date %level %class %method : %msg%n"/>
+		</Console>
+		<File name="RollingFileError" fileName="E:/logs/error.log"
+			  filePattern="E:logs/logs/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log">
+			<ThresholdFilter level="ERROR"/>
+			<PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy/>
+				<SizeBasedTriggeringPolicy size="100 MB"/>
+			</Policies>
+		</File>
+	</Appenders>
+
+	<Loggers>
+		<Root level="info">
+			<AppenderRef ref="Console"/>
+			<AppenderRef ref="RollingFileError" />
+		</Root>
+		<Logger name="org.hibernate.SQL" level="trace" additivity="false">
+			<AppenderRef ref="Console"/>
+		</Logger>
+		<Logger name="org.hibernate.type.descriptor" level="trace" additivity="false">
+			<AppenderRef ref="Console"/>
+		</Logger>
+		<Logger name="java.sql" level="debug" additivity="false">
+			<AppenderRef ref="Console"/>
+		</Logger>
+		<Logger name="springfox.documentation" level="warn" additivity="false">
+			<AppenderRef ref="Console"/>
+		</Logger>
+	</Loggers>
+</Configuration>
